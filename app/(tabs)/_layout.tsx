@@ -1,37 +1,94 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import {View, Text, Image} from "react-native";
+import React from "react";
+import {Tabs} from "expo-router";
+import {icons} from '../../constants';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+class TabIcon extends React.Component<{ icon: any, color: any, name: any, focused: any }> {
+    render() {
+        let {icon, color, name, focused} = this.props;
+        return (
+            <View className="items-center justify-center gap-2">
+                <Image
+                    source={icon}
+                    resizeMode="contain"
+                    tintColor={color}
+                    className="w-6 h-6"
+                />
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
-  );
+                <Text className={`${focused ? 'font-pextrabold' : 'font-pregular'} text-xs`}
+                      style={{color: color}}>
+                    {name}
+                </Text>
+            </View>
+        )
+    }
 }
+
+const TabLayout = () => {
+    return (
+        <>
+            <Tabs
+             screenOptions={{
+                 tabBarShowLabel: false,
+                 tabBarActiveTintColor: '#FFA001',
+                 tabBarInactiveTintColor: '#CDCDE0',
+                 tabBarStyle: {
+                     backgroundColor: '#161622',
+                     borderTopWidth: 1,
+                     borderTopColor: '#161622',
+                 }
+             }}
+            >
+                <Tabs.Screen
+                    name="home"
+                    options={{
+                        title: "Home",
+                        headerShown: false,
+                        tabBarIcon: ({color, focused}) => (
+                            <TabIcon
+                                icon={icons.home}
+                                color={color}
+                                name="Home"
+                                focused={focused}
+                            />
+                        )
+                    }}
+                />
+
+                <Tabs.Screen
+                    name="search"
+                    options={{
+                        title: "Search",
+                        headerShown: false,
+                        tabBarIcon: ({color, focused}) => (
+                            <TabIcon
+                                icon={icons.search}
+                                color={color}
+                                name="Search"
+                                focused={focused}
+                            />
+                        )
+                    }}
+                />
+
+                <Tabs.Screen
+                    name="user"
+                    options={{
+                        title: "User",
+                        headerShown: false,
+                        tabBarIcon: ({color, focused}) => (
+                            <TabIcon
+                                icon={icons.profile}
+                                color={color}
+                                name="User"
+                                focused={focused}
+                            />
+                        )
+                    }}
+                />
+            </Tabs>
+        </>
+    )
+}
+
+export default TabLayout;
