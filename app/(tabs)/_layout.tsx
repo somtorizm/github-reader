@@ -19,6 +19,8 @@ class TabIcon extends React.Component<{ icon: any, color: any, name: any, focuse
                       style={{color: color}}>
                     {name}
                 </Text>
+
+                <View className="h-4"/>
             </View>
         )
     }
