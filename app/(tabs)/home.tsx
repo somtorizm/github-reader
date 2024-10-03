@@ -39,7 +39,7 @@ const Home = () => {
                         color="#F6EDF8"
                         onPress={() =>
                             router.push('//(tabs)//(tabs)/search')
-                    }
+                        }
                     />
                 </View>
 
